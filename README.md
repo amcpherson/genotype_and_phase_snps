@@ -1,2 +1,6 @@
-# genotype_and_phase_snps
-Genotype and phase snps workflow
+# Genotype and phase snps workflow
+
+
+Currently just a script but in the future possibly a workflow.
+
+
