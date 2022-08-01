@@ -76,51 +76,6 @@ def main(input_bam, input_reference, output_bcf, reference_dir, temps_prefix):
     pool.close()
     pool.join()
 
-    # for chromosome in grch38_1kg_chromosomes:
-        # if chromosome == 'chrX':
-        #     reference_vcf = os.path.join(reference_dir, grch38_1kg_X_vcf_filename_template)
-        #     reference_bcf = os.path.join(reference_dir, grch38_1kg_X_bcf_filename_template)
-
-        # else:
-        #     reference_vcf = os.path.join(reference_dir, grch38_1kg_vcf_filename_template.format(chromosome=chromosome))
-        #     reference_bcf = os.path.join(reference_dir, grch38_1kg_bcf_filename_template.format(chromosome=chromosome))
-
-        # chromosome_mpileup_vcf = temps_prefix + '.' + chromosome + '.mpileup.vcf.gz'
-        # chromosome_calls_bcf = temps_prefix + '.' + chromosome + '.calls.bcf'
-
-        # subprocess.check_call([
-        #     'bcftools', 'mpileup', '-Oz',
-        #     '-f', input_reference,
-        #     '--regions-file', reference_vcf,
-        #     input_bam,
-        #     '-o', chromosome_mpileup_vcf,
-        # ])
-
-        # subprocess.check_call([
-        #     'bcftools', 'call', '-Ob', '-c',
-        #     chromosome_mpileup_vcf,
-        #     '-o', chromosome_calls_bcf,
-        # ])
-
-        # subprocess.check_call([
-        #     'bcftools', 'index', chromosome_calls_bcf,
-        # ])
-
-        # genetic_map = os.path.join(reference_dir, f'{chromosome}.b38.gmap.gz')
-
-        # chromosome_phased_bcf = temps_prefix + '.' + chromosome + '.bcf'
-        # phased_bcfs.append(chromosome_phased_bcf)
-
-        # subprocess.check_call([
-        #     'singularity', 'run', '--bind', '/juno', 'shapeit4_latest.sif',
-        #     'shapeit4',
-        #     '--input', chromosome_calls_bcf,
-        #     '--map', genetic_map,
-        #     '--region', chromosome,
-        #     '--reference', reference_bcf,
-        #     '--output', chromosome_phased_bcf,
-        #     '--seed', '2'])
-
     subprocess.check_call([
         'bcftools', 'concat', '-o', output_bcf] + phased_bcfs)
     
